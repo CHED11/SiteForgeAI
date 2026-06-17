@@ -1,0 +1,23 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+/** Add alpha to a hex color, e.g. withAlpha("#9bd17a", 0.2) -> "rgba(...)". */
+export function withAlpha(hex: string, alpha: number): string {
+  const clean = hex.replace("#", "");
+  const full =
+    clean.length === 3
+      ? clean
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : clean;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  if ([r, g, b].some(Number.isNaN)) return hex;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
