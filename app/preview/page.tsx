@@ -1,28 +1,79 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { siteConfigSchema, type SiteConfig } from "@/lib/types";
 import { SAMPLE_SITE } from "@/lib/samples";
 import SiteRenderer from "@/components/site/SiteRenderer";
+import EditorDock from "@/components/studio/EditorDock";
+import {
+  getCurrentId,
+  getSite,
+  saveNewSite,
+  setCurrentId,
+  updateSite,
+} from "@/lib/storage";
 
-const STORAGE_KEY = "siteforge:config";
+// Legacy session pointer from earlier versions — read once for back-compat.
+const SESSION_KEY = "siteforge:config";
 
-export default function PreviewPage() {
+function PreviewInner() {
+  const params = useSearchParams();
   const [config, setConfig] = useState<SiteConfig | null>(null);
+  const [siteId, setSiteId] = useState<string | null>(null);
+  const [saved, setSaved] = useState(true);
+  const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Resolve which site to show: ?demo → ?id= → current pointer → legacy session → demo.
   useEffect(() => {
+    if (params.get("demo")) {
+      setSiteId(null);
+      setConfig(SAMPLE_SITE);
+      return;
+    }
+    const queryId = params.get("id");
+    const id = queryId ?? getCurrentId();
+    if (id) {
+      const site = getSite(id);
+      if (site) {
+        setSiteId(site.id);
+        setConfig(site.config);
+        setCurrentId(site.id);
+        return;
+      }
+    }
+    // Back-compat: a config left in sessionStorage by an older build.
     try {
-      const raw = sessionStorage.getItem(STORAGE_KEY);
+      const raw = sessionStorage.getItem(SESSION_KEY);
       if (raw) {
-        setConfig(siteConfigSchema.parse(JSON.parse(raw)));
+        const parsed = siteConfigSchema.parse(JSON.parse(raw));
+        const newId = saveNewSite(parsed);
+        sessionStorage.removeItem(SESSION_KEY);
+        setSiteId(newId);
+        setConfig(parsed);
         return;
       }
     } catch {
-      /* fall through to demo */
+      /* ignore and fall through to demo */
     }
+    // Demo: render the sample without persisting it to the library.
     setConfig(SAMPLE_SITE);
-  }, []);
+  }, [params]);
+
+  // Persist edits (debounced) whenever a saved site's config changes.
+  const handleChange = useCallback(
+    (next: SiteConfig) => {
+      setConfig(next);
+      if (!siteId) return;
+      setSaved(false);
+      if (saveTimer.current) clearTimeout(saveTimer.current);
+      saveTimer.current = setTimeout(() => {
+        updateSite(siteId, next);
+        setSaved(true);
+      }, 500);
+    },
+    [siteId]
+  );
 
   if (!config) {
     return (
@@ -37,14 +88,16 @@ export default function PreviewPage() {
 
   return (
     <>
-      {/* Floating return-to-studio control */}
-      <Link
-        href="/"
-        className="glass fixed bottom-5 left-1/2 z-[110] -translate-x-1/2 rounded-full border border-white/15 bg-black/40 px-5 py-2.5 text-sm font-medium text-white transition-transform duration-300 ease-luxe hover:scale-[1.04]"
-      >
-        ← Back to studio
-      </Link>
-      <SiteRenderer key={config.businessName} config={config} />
+      <EditorDock config={config} onConfigChange={handleChange} saved={saved} />
+      <SiteRenderer key={siteId ?? config.businessName} config={config} />
     </>
+  );
+}
+
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={null}>
+      <PreviewInner />
+    </Suspense>
   );
 }

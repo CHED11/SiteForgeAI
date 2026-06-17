@@ -9,7 +9,9 @@ import Stats from "./Stats";
 import Services from "./Services";
 import About from "./About";
 import Testimonials from "./Testimonials";
+import Pricing from "./Pricing";
 import CTA from "./CTA";
+import Contact from "./Contact";
 import Footer from "./Footer";
 
 /**
@@ -50,7 +52,9 @@ export default function SiteRenderer({ config }: { config: SiteConfig }) {
         <Services config={config} />
         <About config={config} />
         <Testimonials config={config} />
+        <Pricing config={config} />
         <CTA config={config} />
+        <Contact config={config} />
         <Footer config={config} />
       </main>
     </SmoothScroll>

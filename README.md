@@ -11,7 +11,14 @@ Every generated site ships with the motion language of a high-end studio:
 - 🧲 **Magnetic hover** on CTAs and nav
 - 🎬 **Luxury page-transition curtain** on load
 - 🎨 **Animated gradient lighting** themed per brand
-- 📈 **Conversion-focused layout**: hero → proof → services → story → testimonials → CTA
+- 📈 **Conversion-focused layout**: hero → proof → services → story → testimonials → **pricing** → CTA → **enquiry form**
+
+It's also a usable product, not just a preview:
+
+- 💾 **Persist & manage sites** — every generation is saved to a local library you can reopen, rename, and delete across sessions
+- 📦 **Code export** — download a self-contained, animated `index.html` (Lenis + GSAP + working form, zero build step) or export the raw `SiteConfig` as JSON (and re-import it)
+- 🪄 **Per-section regeneration** — restyle or rewrite any single section (hero, pricing, palette…) with an optional instruction, while the rest of the site stays put
+- 💬 **Clear pricing + enquiry flow** — AI-generated pricing tiers and a real contact form that delivers enquiries to your business inbox
 
 ---
 
@@ -31,10 +38,28 @@ Business brief  ──▶  /api/generate  ──▶  Claude (claude-opus-4-8)  �
    Output is constrained with **structured outputs** (`output_config.format`) and
    validated with **zod**, so the renderer always gets a clean shape.
 3. The config is rendered full-screen at `/preview` by `<SiteRenderer />`, which
-   applies the theme colors and the entire animation system.
+   applies the theme colors and the entire animation system. It's also **saved to
+   your local library** so you can reopen, edit, and export it later.
+4. From the preview's floating **editor dock** you can regenerate any single
+   section (`/api/regenerate`), download the site as standalone code, or export
+   the config as JSON.
 
 No API key? The studio has a **"Explore a live demo site"** button that renders a
 hand-tuned sample config so you can experience the output instantly.
+
+### Enquiry delivery
+
+The generated site's contact form posts to `/api/inquiry`, which forwards
+submissions to your business inbox via **Formspree** when configured. With no
+endpoint set, the form gracefully falls back to opening the visitor's mail client
+(pre-filled `mailto`) so it always works. Configure delivery in `.env.local`:
+
+```bash
+INQUIRY_EMAIL=forge100000@gmail.com           # where enquiries land
+FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxxxx   # optional; create at formspree.io
+NEXT_PUBLIC_INQUIRY_EMAIL=forge100000@gmail.com      # mailto fallback + exported sites
+# NEXT_PUBLIC_FORMSPREE_ENDPOINT=...                  # baked into exported standalone sites
+```
 
 ---
 
@@ -75,19 +100,26 @@ Open <http://localhost:3000>, describe a business, and hit **Generate site**.
 
 ```
 app/
-  page.tsx              Studio — the generator UI
-  preview/page.tsx      Renders a generated site full-screen
-  api/generate/route.ts Calls Claude, returns a validated SiteConfig
+  page.tsx                Studio — generator UI + saved-site library
+  preview/page.tsx        Renders a saved/generated site full-screen + editor dock
+  api/generate/route.ts   Calls Claude, returns a validated SiteConfig
+  api/regenerate/route.ts Regenerates a single section of an existing SiteConfig
+  api/inquiry/route.ts    Delivers contact-form submissions (Formspree / mailto)
 lib/
   types.ts              SiteConfig zod schema + JSON Schema (the contract)
-  prompt.ts             Creative-director system prompt
+  prompt.ts             Creative-director + section-regeneration prompts
   generate.ts           Claude call (streaming + structured output)
+  regenerate.ts         Single-section Claude call
   anthropic.ts          Lazy SDK client
+  storage.ts            localStorage site library (save/list/update/export)
+  export-html.ts        Standalone animated index.html generator
+  contact.ts            Enquiry validation + delivery config
   samples.ts            Demo SiteConfig + example briefs
   utils.ts              cn(), withAlpha()
 components/
   providers/SmoothScroll.tsx   Lenis <-> GSAP ScrollTrigger wiring
-  site/                        SiteRenderer + all page sections
+  site/                        SiteRenderer + all page sections (incl. Pricing, Contact)
+  studio/EditorDock.tsx        Floating per-section regenerate + export controls
   ui/                          Motion primitives (AnimatedText, Reveal,
                                Magnetic, SpotlightCard, Parallax, Marquee, Icon)
 ```
@@ -95,8 +127,8 @@ components/
 ### The `SiteConfig` contract
 
 `lib/types.ts` is the heart of the system. It defines — in one zod schema — exactly
-what a website is made of (theme, hero, stats, services, about, testimonials, CTA,
-footer). Claude is constrained to produce JSON matching its JSON-Schema twin, and
+what a website is made of (theme, hero, stats, services, about, testimonials,
+pricing, CTA, contact, footer). Claude is constrained to produce JSON matching its JSON-Schema twin, and
 `<SiteRenderer />` knows how to turn every field into animated UI. To add a new
 section, extend the schema, add it to the JSON Schema + system prompt, and render it.
 

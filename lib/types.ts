@@ -98,6 +98,52 @@ export const ctaSchema = z.object({
   button: z.string(),
 });
 
+export const pricingTierSchema = z.object({
+  name: z.string().describe("Plan/package name, e.g. 'Essential', 'Signature'."),
+  price: z.string().describe("e.g. '$2,400', 'From $180', 'Custom'."),
+  period: z
+    .string()
+    .describe("Unit/cadence shown after price, e.g. 'per project', '/month', '' if none."),
+  description: z.string().describe("One line on who this tier is for."),
+  features: z
+    .array(z.string())
+    .min(3)
+    .max(6)
+    .describe("Concrete inclusions for this tier."),
+  cta: z.string().describe("Button label, e.g. 'Start here', 'Book a call'."),
+  featured: z
+    .boolean()
+    .describe("Mark exactly one tier true to highlight it as recommended."),
+});
+
+export const pricingSchema = z.object({
+  eyebrow: z.string(),
+  title: z.string(),
+  subtitle: z.string(),
+  note: z
+    .string()
+    .describe("Reassuring line under the grid, e.g. 'No hidden fees. Free consultation.'"),
+  tiers: z.array(pricingTierSchema).min(2).max(4),
+});
+
+export const contactSchema = z.object({
+  eyebrow: z.string(),
+  title: z.string(),
+  subtitle: z.string(),
+  email: z.string().describe("Public contact email for the business."),
+  phone: z.string().describe("Public phone number, formatted for display."),
+  location: z.string().describe("City/area or short address line."),
+  hours: z
+    .string()
+    .describe("Opening hours or a response-time promise, e.g. 'Replies within 1 business day'."),
+  interests: z
+    .array(z.string())
+    .min(2)
+    .max(6)
+    .describe("Options for the inquiry form's 'I'm interested in' dropdown."),
+  buttonLabel: z.string().describe("Submit button label, e.g. 'Send enquiry'."),
+});
+
 export const footerSchema = z.object({
   tagline: z.string(),
   columns: z
@@ -120,7 +166,9 @@ export const siteConfigSchema = z.object({
   services: servicesSchema,
   about: aboutSchema,
   testimonials: testimonialsSchema,
+  pricing: pricingSchema.optional(),
   cta: ctaSchema,
+  contact: contactSchema.optional(),
   footer: footerSchema,
 });
 
@@ -128,6 +176,8 @@ export type Theme = z.infer<typeof themeSchema>;
 export type SiteConfig = z.infer<typeof siteConfigSchema>;
 export type Service = z.infer<typeof serviceSchema>;
 export type IconName = Service["icon"];
+export type PricingTier = z.infer<typeof pricingTierSchema>;
+export type Contact = z.infer<typeof contactSchema>;
 
 /**
  * JSON Schema handed to Claude's structured-output API. Derived by hand from the
@@ -285,6 +335,42 @@ export const SITE_JSON_SCHEMA = {
       },
       required: ["eyebrow", "title", "items"],
     },
+    pricing: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        eyebrow: { type: "string" },
+        title: { type: "string" },
+        subtitle: { type: "string" },
+        note: { type: "string" },
+        tiers: {
+          type: "array",
+          items: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+              name: { type: "string" },
+              price: { type: "string" },
+              period: { type: "string" },
+              description: { type: "string" },
+              features: { type: "array", items: { type: "string" } },
+              cta: { type: "string" },
+              featured: { type: "boolean" },
+            },
+            required: [
+              "name",
+              "price",
+              "period",
+              "description",
+              "features",
+              "cta",
+              "featured",
+            ],
+          },
+        },
+      },
+      required: ["eyebrow", "title", "subtitle", "note", "tiers"],
+    },
     cta: {
       type: "object",
       additionalProperties: false,
@@ -294,6 +380,32 @@ export const SITE_JSON_SCHEMA = {
         button: { type: "string" },
       },
       required: ["headline", "subheadline", "button"],
+    },
+    contact: {
+      type: "object",
+      additionalProperties: false,
+      properties: {
+        eyebrow: { type: "string" },
+        title: { type: "string" },
+        subtitle: { type: "string" },
+        email: { type: "string" },
+        phone: { type: "string" },
+        location: { type: "string" },
+        hours: { type: "string" },
+        interests: { type: "array", items: { type: "string" } },
+        buttonLabel: { type: "string" },
+      },
+      required: [
+        "eyebrow",
+        "title",
+        "subtitle",
+        "email",
+        "phone",
+        "location",
+        "hours",
+        "interests",
+        "buttonLabel",
+      ],
     },
     footer: {
       type: "object",
@@ -327,7 +439,40 @@ export const SITE_JSON_SCHEMA = {
     "services",
     "about",
     "testimonials",
+    "pricing",
     "cta",
+    "contact",
     "footer",
   ],
 } as const;
+
+/**
+ * Section keys that support standalone AI regeneration. Each maps to a top-level
+ * property of SITE_JSON_SCHEMA, which the regenerate endpoint wraps into a
+ * focused single-section output schema.
+ */
+export const REGENERATABLE_SECTIONS = [
+  "theme",
+  "hero",
+  "stats",
+  "services",
+  "about",
+  "testimonials",
+  "pricing",
+  "cta",
+  "contact",
+] as const;
+
+export type RegeneratableSection = (typeof REGENERATABLE_SECTIONS)[number];
+
+export const SECTION_LABELS: Record<RegeneratableSection, string> = {
+  theme: "Color & mood",
+  hero: "Hero",
+  stats: "Stats",
+  services: "Services",
+  about: "About",
+  testimonials: "Testimonials",
+  pricing: "Pricing",
+  cta: "Call to action",
+  contact: "Contact",
+};

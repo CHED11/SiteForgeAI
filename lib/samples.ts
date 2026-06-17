@@ -21,6 +21,7 @@ export const SAMPLE_SITE: SiteConfig = {
     links: [
       { label: "Work", href: "#services" },
       { label: "Studio", href: "#about" },
+      { label: "Pricing", href: "#pricing" },
       { label: "Praise", href: "#testimonials" },
       { label: "Contact", href: "#contact" },
     ],
@@ -135,11 +136,81 @@ export const SAMPLE_SITE: SiteConfig = {
       },
     ],
   },
+  pricing: {
+    eyebrow: "Ways to work together",
+    title: "Investment that pays back in shade and stillness",
+    subtitle:
+      "Every garden is bespoke, but most projects start in one of three places. We'll tailor the scope on our first walk.",
+    note: "Free on-site consultation · Fixed quotes · 10-year structural guarantee",
+    tiers: [
+      {
+        name: "Garden Refresh",
+        price: "From $6,500",
+        period: "per project",
+        description: "For a single zone that needs to come alive again.",
+        features: [
+          "Concept & planting plan",
+          "Native, low-water palette",
+          "One feature element",
+          "Full install crew",
+        ],
+        cta: "Start a refresh",
+        featured: false,
+      },
+      {
+        name: "Signature Landscape",
+        price: "From $24,000",
+        period: "per project",
+        description: "Our most-loved end-to-end design & build.",
+        features: [
+          "Full master plan",
+          "Stonework & structure",
+          "Architectural lighting",
+          "Layered native planting",
+          "Dedicated project lead",
+        ],
+        cta: "Book a site visit",
+        featured: true,
+      },
+      {
+        name: "Estate & Stewardship",
+        price: "Custom",
+        period: "",
+        description: "Multi-phase grounds with ongoing care.",
+        features: [
+          "Phased master planning",
+          "Outdoor living & kitchens",
+          "Seasonal care program",
+          "Priority crew scheduling",
+        ],
+        cta: "Talk to the studio",
+        featured: false,
+      },
+    ],
+  },
   cta: {
     headline: "Let's design something that lasts",
     subheadline:
       "Tell us about your space. We'll walk it with you and sketch what's possible — no pressure, no templates.",
     button: "Book your site visit",
+  },
+  contact: {
+    eyebrow: "Start the conversation",
+    title: "Tell us about your space",
+    subtitle:
+      "Share a few details and we'll be in touch to schedule your free on-site consultation.",
+    email: "studio@verdantandstone.com",
+    phone: "(512) 555-0148",
+    location: "Austin & the Texas Hill Country",
+    hours: "We reply within one business day",
+    interests: [
+      "Garden Refresh",
+      "Signature Landscape",
+      "Estate & Stewardship",
+      "Maintenance only",
+      "Something else",
+    ],
+    buttonLabel: "Request my consultation",
   },
   footer: {
     tagline: "Landscape architecture for the modern home.",
