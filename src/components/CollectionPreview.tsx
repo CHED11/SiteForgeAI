@@ -72,11 +72,10 @@ export default function CollectionPreview({ collection, reverse = false }: Props
             )}
             {product && (
               <ProductImage
-                src={product.image}
-                alt={`${product.title} poster`}
+                src={product.images.design}
+                alt={`${product.title} poster design`}
                 title={product.title}
                 collection={collection}
-                framed={isPremium}
                 className="relative"
               />
             )}

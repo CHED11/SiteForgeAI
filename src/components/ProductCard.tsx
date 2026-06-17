@@ -25,8 +25,8 @@ export default function ProductCard({ product }: { product: Product }) {
           transition={{ duration: 1.1, ease: EASE_LUX }}
         >
           <ProductImage
-            src={product.image}
-            alt={`${product.title} poster`}
+            src={product.images.design}
+            alt={`${product.title} poster design`}
             title={product.title}
             collection={product.collection}
           />

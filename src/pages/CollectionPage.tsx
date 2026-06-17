@@ -115,11 +115,10 @@ export default function CollectionPage() {
                 <div className="pointer-events-none absolute -inset-12 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.14),transparent_65%)]" />
               )}
               <ProductImage
-                src={product.image}
-                alt={`${product.title} poster`}
+                src={product.images.design}
+                alt={`${product.title} poster design`}
                 title={product.title}
                 collection={collection}
-                framed={isPremium}
                 className="relative"
               />
             </motion.div>

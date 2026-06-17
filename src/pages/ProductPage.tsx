@@ -3,6 +3,7 @@ import { useParams, Navigate, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   getProduct,
+  galleryImages,
   SIZE_OPTIONS,
   FRAME_OPTIONS,
   DEFAULT_SIZE,
@@ -25,6 +26,8 @@ export default function ProductPage() {
   const [frameId, setFrameId] = useState<FrameId>(DEFAULT_FRAME);
   const [qty, setQty] = useState(1);
   const [notice, setNotice] = useState<string | null>(null);
+  // Active gallery image: "design" (primary, default) or "framed" (secondary).
+  const [activeImageId, setActiveImageId] = useState<"design" | "framed">("design");
 
   const size = useMemo(() => SIZE_OPTIONS.find((s) => s.id === sizeId)!, [sizeId]);
   const frame = useMemo(() => FRAME_OPTIONS.find((f) => f.id === frameId)!, [frameId]);
@@ -36,7 +39,16 @@ export default function ProductPage() {
 
   if (!product) return <Navigate to="/" replace />;
 
-  const framed = frameId === "black-frame";
+  // Ordered gallery — design first, framed second. Never framed-first.
+  const gallery = galleryImages(product);
+  const active = gallery.find((g) => g.id === activeImageId) ?? gallery[0];
+
+  // Selecting a frame also previews the matching image:
+  // Black Frame → framed shot, Print Only → poster design.
+  const selectFrame = (id: FrameId) => {
+    setFrameId(id);
+    setActiveImageId(id === "black-frame" ? "framed" : "design");
+  };
 
   const flash = (msg: string) => {
     setNotice(msg);
@@ -94,22 +106,51 @@ export default function ProductPage() {
             )}
             <AnimatePresence mode="wait">
               <motion.div
-                key={framed ? "framed" : "print"}
+                key={active.id}
                 initial={{ opacity: 0, scale: 0.99 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: EASE_LUX }}
               >
                 <ProductImage
-                  src={product.image}
-                  alt={`${product.title} poster`}
+                  src={active.src}
+                  alt={`${product.title} — ${active.label}`}
                   title={product.title}
                   collection={product.collection}
-                  framed={framed}
                   className="relative mx-auto max-w-md"
                 />
               </motion.div>
             </AnimatePresence>
+          </div>
+
+          {/* Thumbnail strip — poster design first, framed second */}
+          <div className="mx-auto mt-5 flex max-w-md justify-center gap-3">
+            {gallery.map((g) => (
+              <button
+                key={g.id}
+                onClick={() => setActiveImageId(g.id)}
+                aria-label={`View ${g.label}`}
+                className={[
+                  "group relative h-24 w-20 overflow-hidden rounded-lg border transition-all duration-300 ease-lux",
+                  g.id === active.id
+                    ? "border-chalk"
+                    : "border-white/10 opacity-60 hover:opacity-100",
+                ].join(" ")}
+              >
+                <img
+                  src={g.src}
+                  alt={`${product.title} ${g.label} thumbnail`}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                  onError={(e) => {
+                    (e.currentTarget.style.display = "none");
+                  }}
+                />
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-1 pb-1 pt-3 text-[0.55rem] uppercase tracking-wider text-chalk/90">
+                  {g.label}
+                </span>
+              </button>
+            ))}
           </div>
         </motion.div>
 
@@ -146,7 +187,7 @@ export default function ProductPage() {
               <OptionButton
                 key={f.id}
                 active={f.id === frameId}
-                onClick={() => setFrameId(f.id)}
+                onClick={() => selectFrame(f.id)}
               >
                 {f.label}
               </OptionButton>

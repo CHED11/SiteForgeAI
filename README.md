@@ -21,12 +21,16 @@ npm run preview  # preview the production build
 
 ## Add the live product images
 
-Drop the two supplied poster files into `public/products/`:
+Each product has **two** images — the poster design (primary) and the framed
+poster (secondary). The design always shows first. Drop the four files into
+`public/products/`:
 
-| File              | Product                     | Collection  |
-| ----------------- | --------------------------- | ----------- |
-| `revuelto.jpg`    | Lamborghini Revuelto Poster | Premium     |
-| `porsche-918.jpg` | Porsche 918 Spyder Poster   | Performance |
+| File                     | Product              | Role            |
+| ------------------------ | -------------------- | --------------- |
+| `revuelto-design.jpg`    | Lamborghini Revuelto | Poster Design   |
+| `revuelto-framed.jpg`    | Lamborghini Revuelto | Framed Poster   |
+| `porsche-918-design.jpg` | Porsche 918 Spyder   | Poster Design   |
+| `porsche-918-framed.jpg` | Porsche 918 Spyder   | Framed Poster   |
 
 Until they exist, a tasteful gallery placeholder is shown. No car artwork is
 ever generated or faked.

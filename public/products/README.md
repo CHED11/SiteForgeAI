@@ -1,18 +1,26 @@
 # Live Product Images
 
-Drop the two supplied poster files here, named exactly:
+Each product uses **two** images, in this order:
 
-| File                | Product                        | Collection   |
-| ------------------- | ------------------------------ | ------------ |
-| `revuelto.jpg`      | Lamborghini Revuelto Poster    | Premium      |
-| `porsche-918.jpg`   | Porsche 918 Spyder Poster      | Performance  |
+1. **Poster Design** (primary — shown first, used on all cards & previews)
+2. **Framed Poster** (secondary — shown second in the product-page gallery)
+
+Drop the four supplied files here, named exactly:
+
+| File                       | Product           | Role               |
+| -------------------------- | ----------------- | ------------------ |
+| `revuelto-design.jpg`      | Lamborghini Revuelto | Poster Design (1) |
+| `revuelto-framed.jpg`      | Lamborghini Revuelto | Framed Poster (2) |
+| `porsche-918-design.jpg`   | Porsche 918 Spyder   | Poster Design (1) |
+| `porsche-918-framed.jpg`   | Porsche 918 Spyder   | Framed Poster (2) |
 
 The site references these paths in `src/config/products.ts`. Until the files
 exist, a tasteful gallery placeholder is shown — no fake car art is generated.
 
 **Notes**
 - `.jpg`, `.png`, or `.webp` all work. If you use a different extension,
-  update the `image` path in `src/config/products.ts`.
-- Cards use a 4:5 portrait crop. Posters that are roughly portrait look best.
-- Do not rename, recreate, or duplicate the supplied artwork — these are the
-  only live product images.
+  update the `images` paths in `src/config/products.ts`.
+- The framed version never appears before the design version anywhere.
+- On the product page, choosing the **Black Frame** option previews the framed
+  shot; **Print Only** previews the poster design.
+- Do not rename, recreate, or duplicate the supplied artwork.

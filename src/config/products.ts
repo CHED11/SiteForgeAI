@@ -28,6 +28,13 @@ export interface FrameOption {
   skuPart: string;
 }
 
+export interface ProductImages {
+  /** Primary image — the poster design itself. Shown first, everywhere. */
+  design: string;
+  /** Secondary image — the same poster shown framed on a wall. */
+  framed: string;
+}
+
 export interface Product {
   id: string;
   /** Stripe SKU prefix, e.g. REVUELTO or 918 */
@@ -37,7 +44,11 @@ export interface Product {
   collection: CollectionId;
   collectionLabel: string;
   badge: string;
-  image: string;
+  /**
+   * Ordered gallery: `design` is always the primary/first image, `framed` is
+   * the secondary. Never show the framed version first.
+   */
+  images: ProductImages;
   /** Short marketing line for cards. */
   tagline: string;
   /** Full gallery-style description for the product page. */
@@ -69,7 +80,10 @@ export const PRODUCTS: Product[] = [
     collection: "premium",
     collectionLabel: "Premium Collection",
     badge: "MOST POPULAR",
-    image: "/products/revuelto.jpg",
+    images: {
+      design: "/products/revuelto-design.jpg",
+      framed: "/products/revuelto-framed.jpg",
+    },
     tagline: "The V12 hybrid flagship, rendered as collector-grade wall art.",
     description:
       "A study in Italian engineering theatre. The Revuelto poster captures the angular, aeronautics-inspired silhouette of Lamborghini's V12 hybrid flagship in deep contrast and museum-grade tonality. Printed for collectors who treat their walls like a private gallery.",
@@ -88,7 +102,10 @@ export const PRODUCTS: Product[] = [
     collection: "performance",
     collectionLabel: "Performance Collection",
     badge: "MOST POPULAR",
-    image: "/products/porsche-918.jpg",
+    images: {
+      design: "/products/porsche-918-design.jpg",
+      framed: "/products/porsche-918-framed.jpg",
+    },
     tagline: "Hypercar engineering, distilled into a single technical frame.",
     description:
       "The 918 Spyder defined a generation of hybrid hypercars. This poster treats it as a technical artifact — sharp lines, motorsport contrast, and a darker, more energetic palette built for the performance division. A statement piece for the serious enthusiast.",
@@ -112,4 +129,17 @@ export function getProductsByCollection(collection: CollectionId): Product[] {
 /** Builds the Stripe SKU key for a product/size/frame combination. */
 export function buildSku(product: Product, size: SizeOption, frame: FrameOption): string {
   return `${product.skuPrefix}_${size.skuPart}_${frame.skuPart}`;
+}
+
+/** The primary image used on cards and previews — always the poster design. */
+export function primaryImage(product: Product): string {
+  return product.images.design;
+}
+
+/** Ordered gallery for the product page: design first, framed second. */
+export function galleryImages(product: Product): { id: "design" | "framed"; src: string; label: string }[] {
+  return [
+    { id: "design", src: product.images.design, label: "Poster Design" },
+    { id: "framed", src: product.images.framed, label: "Framed" },
+  ];
 }

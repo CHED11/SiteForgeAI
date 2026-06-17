@@ -6,32 +6,28 @@ interface Props {
   alt: string;
   title: string;
   collection: CollectionId;
-  /** Render a physical black frame around the print. */
-  framed?: boolean;
+  /** Use object-contain (true) for framed shots, cover (false) for designs. */
+  contain?: boolean;
   className?: string;
 }
 
 /**
- * Renders the poster print. If the supplied image file is missing, it shows a
- * tasteful gallery placeholder instead of a broken image — we never generate
- * or fake car artwork.
+ * Renders a poster image. If the supplied file is missing it shows a tasteful
+ * gallery placeholder instead of a broken image — we never generate or fake
+ * car artwork.
  */
 export default function ProductImage({
   src,
   alt,
   title,
   collection,
-  framed = false,
+  contain = false,
   className,
 }: Props) {
   const [errored, setErrored] = useState(false);
 
-  const frameClasses = framed
-    ? "p-3 sm:p-4 bg-[#0b0b0c] ring-1 ring-black shadow-frame rounded-[2px]"
-    : "";
-
   return (
-    <div className={["relative", frameClasses, className ?? ""].join(" ")}>
+    <div className={["relative", className ?? ""].join(" ")}>
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-charcoal-800">
         {!errored ? (
           <img
@@ -40,7 +36,10 @@ export default function ProductImage({
             loading="lazy"
             decoding="async"
             onError={() => setErrored(true)}
-            className="h-full w-full object-cover"
+            className={[
+              "h-full w-full",
+              contain ? "object-contain" : "object-cover",
+            ].join(" ")}
           />
         ) : (
           <Placeholder title={title} collection={collection} />
