@@ -25,15 +25,15 @@ Each product has **two** images — the poster design (primary) and the framed
 poster (secondary). The design always shows first. Drop the four files into
 `public/products/`:
 
-| File                     | Product              | Role            |
-| ------------------------ | -------------------- | --------------- |
-| `revuelto-design.jpg`    | Lamborghini Revuelto | Poster Design   |
-| `revuelto-framed.jpg`    | Lamborghini Revuelto | Framed Poster   |
-| `porsche-918-design.jpg` | Porsche 918 Spyder   | Poster Design   |
-| `porsche-918-framed.jpg` | Porsche 918 Spyder   | Framed Poster   |
+| File                      | Product              | Role            |
+| ------------------------- | -------------------- | --------------- |
+| `revuelto-design.webp`    | Lamborghini Revuelto | Poster Design   |
+| `revuelto-framed.webp`    | Lamborghini Revuelto | Framed Poster   |
+| `porsche-918-design.webp` | Porsche 918 Spyder   | Poster Design   |
+| `porsche-918-framed.webp` | Porsche 918 Spyder   | Framed Poster   |
 
-Until they exist, a tasteful gallery placeholder is shown. No car artwork is
-ever generated or faked.
+If a file is ever missing, a tasteful gallery placeholder is shown instead. No
+car artwork is ever generated or faked.
 
 ---
 

@@ -81,8 +81,8 @@ export const PRODUCTS: Product[] = [
     collectionLabel: "Premium Collection",
     badge: "MOST POPULAR",
     images: {
-      design: "/products/revuelto-design.jpg",
-      framed: "/products/revuelto-framed.jpg",
+      design: "/products/revuelto-design.webp",
+      framed: "/products/revuelto-framed.webp",
     },
     tagline: "The V12 hybrid flagship, rendered as collector-grade wall art.",
     description:
@@ -103,8 +103,8 @@ export const PRODUCTS: Product[] = [
     collectionLabel: "Performance Collection",
     badge: "MOST POPULAR",
     images: {
-      design: "/products/porsche-918-design.jpg",
-      framed: "/products/porsche-918-framed.jpg",
+      design: "/products/porsche-918-design.webp",
+      framed: "/products/porsche-918-framed.webp",
     },
     tagline: "Hypercar engineering, distilled into a single technical frame.",
     description:

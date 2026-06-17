@@ -5,14 +5,14 @@ Each product uses **two** images, in this order:
 1. **Poster Design** (primary — shown first, used on all cards & previews)
 2. **Framed Poster** (secondary — shown second in the product-page gallery)
 
-Drop the four supplied files here, named exactly:
+The four supplied files live here, named exactly:
 
-| File                       | Product           | Role               |
-| -------------------------- | ----------------- | ------------------ |
-| `revuelto-design.jpg`      | Lamborghini Revuelto | Poster Design (1) |
-| `revuelto-framed.jpg`      | Lamborghini Revuelto | Framed Poster (2) |
-| `porsche-918-design.jpg`   | Porsche 918 Spyder   | Poster Design (1) |
-| `porsche-918-framed.jpg`   | Porsche 918 Spyder   | Framed Poster (2) |
+| File                        | Product              | Role               |
+| --------------------------- | -------------------- | ------------------ |
+| `revuelto-design.webp`      | Lamborghini Revuelto | Poster Design (1)  |
+| `revuelto-framed.webp`      | Lamborghini Revuelto | Framed Poster (2)  |
+| `porsche-918-design.webp`   | Porsche 918 Spyder   | Poster Design (1)  |
+| `porsche-918-framed.webp`   | Porsche 918 Spyder   | Framed Poster (2)  |
 
 The site references these paths in `src/config/products.ts`. Until the files
 exist, a tasteful gallery placeholder is shown — no fake car art is generated.
