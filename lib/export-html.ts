@@ -1,5 +1,6 @@
 import type { SiteConfig } from "./types";
 import { withAlpha } from "./utils";
+import { FORMSPREE_ENDPOINT } from "./contact";
 
 /**
  * Turns a SiteConfig into a single, self-contained, production-ready index.html.
@@ -7,8 +8,8 @@ import { withAlpha } from "./utils";
  * The export keeps the premium feel of the in-app renderer with zero build step:
  * Lenis smooth scrolling, GSAP-driven hero parallax, IntersectionObserver reveals,
  * glassmorphism nav, animated gradients, magnetic-ish buttons, a real pricing
- * grid, and a working contact form (Formspree when an endpoint is supplied,
- * mailto otherwise). Open the file in any browser and it just works.
+ * grid, and a working contact form that posts straight to Formspree. Open the
+ * file in any browser and it just works.
  */
 
 const ICON_PATHS: Record<string, string> = {
@@ -46,7 +47,6 @@ function icon(name: string): string {
 
 export type ExportOptions = {
   formspreeEndpoint?: string | null;
-  inquiryEmail?: string;
 };
 
 export function buildStandaloneHtml(
@@ -54,8 +54,7 @@ export function buildStandaloneHtml(
   opts: ExportOptions = {}
 ): string {
   const t = config.theme;
-  const endpoint = opts.formspreeEndpoint || "";
-  const mailto = opts.inquiryEmail || "";
+  const endpoint = opts.formspreeEndpoint || FORMSPREE_ENDPOINT;
 
   const navLinks = config.nav.links
     .map(
@@ -214,8 +213,8 @@ export function buildStandaloneHtml(
     )
     .join("");
 
-  // The form script: progressively enhance to fetch+JSON when an endpoint
-  // exists, otherwise fall back to a pre-filled mailto link.
+  // The form script: post straight to Formspree, confirm on success, and only
+  // surface a message when Formspree actually returns an error.
   const formScript = c
     ? `
     (function () {
@@ -223,28 +222,19 @@ export function buildStandaloneHtml(
       var status = document.getElementById('form-status');
       if (!form) return;
       var endpoint = ${JSON.stringify(endpoint)};
-      var mailto = ${JSON.stringify(mailto)};
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var data = Object.fromEntries(new FormData(form).entries());
         status.textContent = 'Sending…';
         status.className = 'form-status';
-        function fallbackMailto() {
-          if (!mailto) { status.textContent = 'Could not send automatically. Please email us directly.'; status.className = 'form-status err'; return; }
-          var body = 'Name: ' + (data.name||'') + '%0D%0AEmail: ' + (data.email||'') + '%0D%0APhone: ' + (data.phone||'') + '%0D%0AInterest: ' + (data.interest||'') + '%0D%0A%0D%0A' + (data.message||'');
-          window.location.href = 'mailto:' + mailto + '?subject=' + encodeURIComponent('New enquiry — ${esc(
-            config.businessName
-          )}') + '&body=' + body;
-          status.textContent = 'Opening your email app…';
-          status.className = 'form-status ok';
-        }
-        if (!endpoint) { fallbackMailto(); return; }
-        fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(data) })
+        fetch(endpoint, { method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(form) })
           .then(function (r) {
-            if (r.ok) { form.reset(); status.textContent = 'Thank you — we\\'ll be in touch shortly.'; status.className = 'form-status ok'; }
-            else { fallbackMailto(); }
+            if (r.ok) { form.reset(); status.textContent = 'Thank you — we\\'ll be in touch shortly.'; status.className = 'form-status ok'; return; }
+            r.json().then(function (d) {
+              var msg = (d && d.errors) ? d.errors.map(function (x) { return x.message; }).join(' ') : 'Something went wrong. Please try again.';
+              status.textContent = msg; status.className = 'form-status err';
+            }).catch(function () { status.textContent = 'Something went wrong. Please try again.'; status.className = 'form-status err'; });
           })
-          .catch(function () { fallbackMailto(); });
+          .catch(function () { status.textContent = "Couldn't reach the server. Please try again."; status.className = 'form-status err'; });
       });
     })();`
     : "";

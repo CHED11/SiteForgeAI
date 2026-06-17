@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { SiteConfig } from "@/lib/types";
 import { withAlpha } from "@/lib/utils";
-import { DEFAULT_INQUIRY_EMAIL } from "@/lib/contact";
+import { publicFormspreeEndpoint } from "@/lib/contact";
 import Reveal from "@/components/ui/Reveal";
 import AnimatedText from "@/components/ui/AnimatedText";
 
@@ -13,43 +13,24 @@ type Status =
   | { kind: "ok"; message: string }
   | { kind: "error"; message: string };
 
-const FALLBACK_EMAIL =
-  process.env.NEXT_PUBLIC_INQUIRY_EMAIL || DEFAULT_INQUIRY_EMAIL;
-
 export default function Contact({ config }: { config: SiteConfig }) {
   const { theme, contact, businessName } = config;
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   if (!contact) return null;
 
-  function openMailto(form: HTMLFormElement, to: string) {
-    const data = new FormData(form);
-    const body = [
-      `Name: ${data.get("name") ?? ""}`,
-      `Email: ${data.get("email") ?? ""}`,
-      `Phone: ${data.get("phone") ?? ""}`,
-      `Interest: ${data.get("interest") ?? ""}`,
-      "",
-      String(data.get("message") ?? ""),
-    ].join("\n");
-    window.location.href = `mailto:${to}?subject=${encodeURIComponent(
-      `New enquiry — ${businessName}`
-    )}&body=${encodeURIComponent(body)}`;
-  }
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = new FormData(form);
     setStatus({ kind: "sending" });
     try {
-      const res = await fetch("/api/inquiry", {
+      const res = await fetch(publicFormspreeEndpoint(), {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, business: businessName }),
+        headers: { Accept: "application/json" },
+        body: data,
       });
-      const json = await res.json().catch(() => ({}));
-      if (res.ok && json.ok) {
+      if (res.ok) {
         form.reset();
         setStatus({
           kind: "ok",
@@ -57,17 +38,16 @@ export default function Contact({ config }: { config: SiteConfig }) {
         });
         return;
       }
-      // Backend isn't configured (or delivery failed): fall back to mailto.
-      openMailto(form, json.email || FALLBACK_EMAIL);
-      setStatus({
-        kind: "ok",
-        message: "Opening your email app to finish sending…",
-      });
+      // Surface the actual Formspree error only.
+      const json = await res.json().catch(() => null);
+      const message =
+        json?.errors?.map((er: { message: string }) => er.message).join(" ") ||
+        "Something went wrong sending your message. Please try again.";
+      setStatus({ kind: "error", message });
     } catch {
-      openMailto(form, FALLBACK_EMAIL);
       setStatus({
-        kind: "ok",
-        message: "Opening your email app to finish sending…",
+        kind: "error",
+        message: "Couldn't reach the server. Please check your connection and try again.",
       });
     }
   }
@@ -209,6 +189,12 @@ export default function Contact({ config }: { config: SiteConfig }) {
                   style={fieldStyle}
                 />
               </Field>
+
+              <input
+                type="hidden"
+                name="_subject"
+                value={`New enquiry — ${businessName}`}
+              />
 
               <button
                 type="submit"

@@ -49,16 +49,16 @@ hand-tuned sample config so you can experience the output instantly.
 
 ### Enquiry delivery
 
-The generated site's contact form posts to `/api/inquiry`, which forwards
-submissions to your business inbox via **Formspree** when configured. With no
-endpoint set, the form gracefully falls back to opening the visitor's mail client
-(pre-filled `mailto`) so it always works. Configure delivery in `.env.local`:
+The generated site's contact form posts **directly to Formspree** from the
+browser, so it works identically on the published Next.js site and in downloaded
+standalone exports — no server hop, no mailto fallback. The endpoint
+(`https://formspree.io/f/mrevvglw`) is configured in the Formspree dashboard to
+deliver every submission to **forge100000@gmail.com**, and is baked in at
+`lib/contact.ts`. On success the form shows a thank-you message; an error only
+appears if Formspree returns one. Override per-environment if ever needed:
 
 ```bash
-INQUIRY_EMAIL=forge100000@gmail.com           # where enquiries land
-FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxxxx   # optional; create at formspree.io
-NEXT_PUBLIC_INQUIRY_EMAIL=forge100000@gmail.com      # mailto fallback + exported sites
-# NEXT_PUBLIC_FORMSPREE_ENDPOINT=...                  # baked into exported standalone sites
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/mrevvglw
 ```
 
 ---
@@ -104,7 +104,6 @@ app/
   preview/page.tsx        Renders a saved/generated site full-screen + editor dock
   api/generate/route.ts   Calls Claude, returns a validated SiteConfig
   api/regenerate/route.ts Regenerates a single section of an existing SiteConfig
-  api/inquiry/route.ts    Delivers contact-form submissions (Formspree / mailto)
 lib/
   types.ts              SiteConfig zod schema + JSON Schema (the contract)
   prompt.ts             Creative-director + section-regeneration prompts
@@ -113,7 +112,7 @@ lib/
   anthropic.ts          Lazy SDK client
   storage.ts            localStorage site library (save/list/update/export)
   export-html.ts        Standalone animated index.html generator
-  contact.ts            Enquiry validation + delivery config
+  contact.ts            Formspree endpoint config for the enquiry form
   samples.ts            Demo SiteConfig + example briefs
   utils.ts              cn(), withAlpha()
 components/

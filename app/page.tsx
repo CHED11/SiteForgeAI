@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { EXAMPLE_BRIEFS } from "@/lib/samples";
 import type { SiteConfig } from "@/lib/types";
 import { buildStandaloneHtml, exportFilename } from "@/lib/export-html";
-import { publicFormspreeEndpoint, publicInquiryEmail } from "@/lib/contact";
+import { publicFormspreeEndpoint } from "@/lib/contact";
 import {
   deleteSite,
   importConfigJson,
@@ -104,7 +104,6 @@ export default function StudioPage() {
   function downloadCode(site: SavedSite) {
     const html = buildStandaloneHtml(site.config, {
       formspreeEndpoint: publicFormspreeEndpoint(),
-      inquiryEmail: publicInquiryEmail(),
     });
     downloadFile(html, exportFilename(site.config), "text/html");
   }

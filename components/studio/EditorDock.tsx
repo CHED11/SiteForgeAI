@@ -10,7 +10,7 @@ import {
   type SiteConfig,
 } from "@/lib/types";
 import { buildStandaloneHtml, exportFilename } from "@/lib/export-html";
-import { publicFormspreeEndpoint, publicInquiryEmail } from "@/lib/contact";
+import { publicFormspreeEndpoint } from "@/lib/contact";
 
 function download(content: string, filename: string, type: string) {
   const blob = new Blob([content], { type });
@@ -72,7 +72,6 @@ export default function EditorDock({
   function downloadHtml() {
     const html = buildStandaloneHtml(config, {
       formspreeEndpoint: publicFormspreeEndpoint(),
-      inquiryEmail: publicInquiryEmail(),
     });
     download(html, exportFilename(config), "text/html");
   }
