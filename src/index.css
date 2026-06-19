@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Offset anchored sections so the fixed header doesn't cover headings */
+  section[id] {
+    scroll-margin-top: 84px;
+  }
+
+  body {
+    @apply bg-warm-white text-charcoal font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-content {
+    @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold tracking-wide transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-beige focus-visible:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn bg-beige text-charcoal hover:bg-beige-dark hover:shadow-soft focus-visible:ring-offset-warm-white;
+  }
+
+  .btn-dark {
+    @apply btn bg-charcoal text-warm-white hover:bg-charcoal-700 hover:shadow-soft;
+  }
+
+  .btn-outline {
+    @apply btn border border-charcoal/20 bg-transparent text-charcoal hover:border-charcoal hover:bg-charcoal hover:text-warm-white;
+  }
+
+  .btn-outline-light {
+    @apply btn border border-white/30 bg-white/5 text-warm-white backdrop-blur-sm hover:bg-warm-white hover:text-charcoal;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest2 text-beige-dark;
+  }
+
+  .section-heading {
+    @apply font-display text-3xl font-bold leading-tight text-charcoal sm:text-4xl lg:text-[2.6rem];
+  }
+}
