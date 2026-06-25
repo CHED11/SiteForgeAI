@@ -1,23 +1,69 @@
-import type { IconName } from "@/lib/types";
+import type { JSX } from "react";
+
+/** Inline stroke-icon set used across the site. Self-contained, no deps. */
+export type IconName =
+  | "palette"
+  | "phone"
+  | "gauge"
+  | "search"
+  | "target"
+  | "support"
+  | "sparkle"
+  | "growth"
+  | "rocket"
+  | "shield"
+  | "layers"
+  | "cart"
+  | "wrench"
+  | "star"
+  | "check"
+  | "arrow";
 
 const paths: Record<IconName, JSX.Element> = {
-  spark: (
-    <path d="M12 2v6m0 8v6m10-10h-6M8 12H2m15.07-7.07-4.24 4.24M9.17 14.83l-4.24 4.24m14.14 0-4.24-4.24M9.17 9.17 4.93 4.93" />
-  ),
-  shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
-  bolt: <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" />,
-  compass: (
+  palette: (
     <>
-      <circle cx="12" cy="12" r="10" />
-      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      <circle cx="13.5" cy="6.5" r="1" />
+      <circle cx="17.5" cy="10.5" r="1" />
+      <circle cx="8.5" cy="7.5" r="1" />
+      <circle cx="6.5" cy="12.5" r="1" />
+      <path d="M12 2a10 10 0 0 0 0 20c1.7 0 2-1.5 1-2.5s-.5-2.5 1-2.5h2a4 4 0 0 0 4-4c0-5.5-4-11-9-11z" />
     </>
   ),
-  layers: (
+  phone: (
     <>
-      <polygon points="12 2 2 7 12 12 22 7 12 2" />
-      <polyline points="2 17 12 22 22 17" />
-      <polyline points="2 12 12 17 22 12" />
+      <rect x="7" y="2" width="10" height="20" rx="2" />
+      <line x1="11" y1="18" x2="13" y2="18" />
     </>
+  ),
+  gauge: (
+    <>
+      <path d="M12 14l4-4" />
+      <path d="M3.34 19a10 10 0 1 1 17.32 0" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </>
+  ),
+  target: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1" />
+    </>
+  ),
+  support: (
+    <>
+      <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+      <rect x="2" y="14" width="4" height="6" rx="1" />
+      <rect x="18" y="14" width="4" height="6" rx="1" />
+      <path d="M18 20a3 3 0 0 1-3 2h-1" />
+    </>
+  ),
+  sparkle: (
+    <path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5zM19 14l1 2.5L22.5 18 20 19l-1 2.5L18 19l-2.5-1 2.5-1 1-2.5z" />
   ),
   growth: (
     <>
@@ -25,21 +71,39 @@ const paths: Record<IconName, JSX.Element> = {
       <polyline points="17 6 23 6 23 12" />
     </>
   ),
-  heart: <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />,
-  gem: (
+  rocket: (
     <>
-      <path d="M6 3h12l4 6-10 13L2 9z" />
-      <path d="M11 3 8 9l4 13 4-13-3-6" />
-      <path d="M2 9h20" />
+      <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2 0-2.8a2 2 0 0 0-3 0z" />
+      <path d="M12 15l-3-3a16 16 0 0 1 7-9c2.5 0 5 .5 5 .5s.5 2.5.5 5a16 16 0 0 1-9 7z" />
+      <circle cx="15" cy="9" r="1.2" />
     </>
   ),
-  tools: (
+  shield: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />,
+  layers: (
+    <>
+      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+      <polyline points="2 17 12 22 22 17" />
+      <polyline points="2 12 12 17 22 12" />
+    </>
+  ),
+  cart: (
+    <>
+      <circle cx="9" cy="21" r="1.5" />
+      <circle cx="18" cy="21" r="1.5" />
+      <path d="M2.5 3h2l2.2 12.4a2 2 0 0 0 2 1.6h8.5a2 2 0 0 0 2-1.6L21.5 7H6" />
+    </>
+  ),
+  wrench: (
     <path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.4 6.4 2.8 2.8 6.4-6.4a4 4 0 0 0 5.6-5.6l-2.5 2.5-2.1-2.1 2.5-2.5z" />
   ),
-  clock: (
+  star: (
+    <polygon points="12 2 15.1 8.6 22 9.3 17 14.1 18.2 21 12 17.6 5.8 21 7 14.1 2 9.3 8.9 8.6 12 2" />
+  ),
+  check: <polyline points="20 6 9 17 4 12" />,
+  arrow: (
     <>
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
     </>
   ),
 };
@@ -66,7 +130,7 @@ export default function Icon({
       className={className}
       aria-hidden
     >
-      {paths[name] ?? paths.spark}
+      {paths[name] ?? paths.sparkle}
     </svg>
   );
 }

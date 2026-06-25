@@ -30,14 +30,14 @@ html.lenis body {
 }
 
 body {
-  background: #0a0a0f;
-  color: #f4f1ea;
+  background: #07070c;
+  color: #f5f3ee;
   overflow-x: hidden;
 }
 
 /* Premium, app-wide selection color */
 ::selection {
-  background: rgba(155, 209, 122, 0.35);
+  background: rgba(139, 123, 255, 0.35);
   color: #fff;
 }
 

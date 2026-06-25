@@ -1,98 +1,87 @@
-# SiteForge AI
+# Forge Digital
 
-**Premium AI website generator.** Describe a business in a sentence and get a fully animated, conversion-focused website that feels like a custom **$10,000–$20,000 agency build** — not a stock AI template.
+**Premium website design & development agency — lead-generation site.**
 
-Every generated site ships with the motion language of a high-end studio:
+Forge Digital builds modern, high-converting websites for businesses across
+Australia. This repository is the agency's own marketing site: a single,
+premium, dark-luxury landing page whose one job is to **collect qualified
+enquiries** from business owners who want Forge Digital to design and build a
+website for them.
 
-- 🌀 **GSAP scroll storytelling** synced to **Lenis smooth scrolling**
-- ✨ **Staggered, word-by-word text reveals** (Framer Motion)
-- 💡 **Dynamic cursor-tracked lighting** on glassmorphism cards
-- 🌊 **Parallax depth** and scroll-linked hero motion
-- 🧲 **Magnetic hover** on CTAs and nav
-- 🎬 **Luxury page-transition curtain** on load
-- 🎨 **Animated gradient lighting** themed per brand
-- 📈 **Conversion-focused layout**: hero → proof → services → story → testimonials → **pricing** → CTA → **enquiry form**
-
-It's also a usable product, not just a preview:
-
-- 💾 **Persist & manage sites** — every generation is saved to a local library you can reopen, rename, and delete across sessions
-- 📦 **Code export** — download a self-contained, animated `index.html` (Lenis + GSAP + working form, zero build step) or export the raw `SiteConfig` as JSON (and re-import it)
-- 🪄 **Per-section regeneration** — restyle or rewrite any single section (hero, pricing, palette…) with an optional instruction, while the rest of the site stays put
-- 💬 **Clear pricing + enquiry flow** — AI-generated pricing tiers and a real contact form that delivers enquiries to your business inbox
+> This is **not** a website builder. Visitors don't create anything — they read,
+> get convinced, and submit an enquiry.
 
 ---
 
-## How it works
+## What's on the page
 
-```
-Business brief  ──▶  /api/generate  ──▶  Claude (claude-opus-4-8)  ──▶  SiteConfig (JSON)
-                                              │  structured output      │
-                                              │  + adaptive thinking     ▼
-                                         art direction + copy     <SiteRenderer />
-                                                                  (GSAP · Lenis · Framer Motion)
-```
+A single scrolling page (`/`) with eight sections:
 
-1. You write a short brief in the **studio** (`/`).
-2. The API route asks Claude — acting as an agency creative director — to return a
-   complete **`SiteConfig`**: palette, copy, services, stats, testimonials, and CTA.
-   Output is constrained with **structured outputs** (`output_config.format`) and
-   validated with **zod**, so the renderer always gets a clean shape.
-3. The config is rendered full-screen at `/preview` by `<SiteRenderer />`, which
-   applies the theme colors and the entire animation system. It's also **saved to
-   your local library** so you can reopen, edit, and export it later.
-4. From the preview's floating **editor dock** you can regenerate any single
-   section (`/api/regenerate`), download the site as standalone code, or export
-   the config as JSON.
+1. **Hero** — headline, subheadline, dual CTAs, trust statistics, animated gradient background
+2. **Why Choose Forge Digital** — eight premium feature cards
+3. **Our Process** — four-step journey from enquiry to launch
+4. **Recent Projects** — portfolio showcase with realistic browser mockups
+5. **Pricing** — Starter / Business / Premium packages with clear inclusions
+6. **Testimonials** — star-rated client reviews with business names
+7. **Enquiry Form** — the most important section; posts directly to Formspree
+8. **Final CTA** — closing call to action
 
-No API key? The studio has a **"Explore a live demo site"** button that renders a
-hand-tuned sample config so you can experience the output instantly.
+### Design
 
-### Enquiry delivery
+Dark luxury aesthetic, glassmorphism cards, Lenis smooth scrolling, GSAP +
+Framer Motion animations, magnetic hover, staggered text reveals, animated
+gradients. Fully responsive, accessible (honours `prefers-reduced-motion`), and
+SEO-friendly (semantic structure + rich metadata).
 
-The generated site's contact form posts **directly to Formspree** from the
-browser, so it works identically on the published Next.js site and in downloaded
-standalone exports — no server hop, no mailto fallback. The endpoint
-(`https://formspree.io/f/mrevvglw`) is configured in the Formspree dashboard to
-deliver every submission to **forge100000@gmail.com**, and is baked in at
-`lib/contact.ts`. On success the form shows a thank-you message; an error only
-appears if Formspree returns one. Override per-environment if ever needed:
+---
 
-```bash
-NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/mrevvglw
-```
+## Enquiry form
+
+The form posts **directly to Formspree** from the browser, so it works on any
+host with no backend. The endpoint (`https://formspree.io/f/mrevvglw`) is
+configured in the Formspree dashboard to deliver every submission to
+**forge100000@gmail.com**, and is set in `lib/contact.ts`.
+
+- **Validation** via native HTML5 (`required`, email/url types)
+- **Success** shows an in-place thank-you panel
+- **Errors** only appear if Formspree actually returns one
+
+Fields: Business Name, Contact Name, Email, Phone, Business Location, Industry,
+Current Website (optional), Services Offered, Preferred Website Style, Budget,
+Timeline, Additional Information.
+
+Override the endpoint per environment with `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
 
 ---
 
 ## Quick start
 
 ```bash
-# 1. Install
 npm install
-
-# 2. Add your Anthropic API key
-cp .env.example .env.local
-#   then edit .env.local and set ANTHROPIC_API_KEY=sk-ant-...
-
-# 3. Run
 npm run dev
 ```
 
-Open <http://localhost:3000>, describe a business, and hit **Generate site**.
+Open <http://localhost:3000>. No API keys or environment variables are required.
 
-> Get an API key at <https://console.anthropic.com/>. The generator uses
-> `claude-opus-4-8` by default; override with `SITEFORGE_MODEL` in `.env.local`.
+---
+
+## Editing content
+
+All copy lives in **`lib/site.ts`** — brand, nav, hero, stats, features,
+process steps, projects, pricing tiers, testimonials, final CTA, and the form's
+dropdown options. Edit that one file to update the site's content; the theme
+colours are at the top of the same file (`THEME`).
 
 ---
 
 ## Tech stack
 
-| Layer        | Choice                                              |
-| ------------ | --------------------------------------------------- |
-| Framework    | Next.js 14 (App Router) + TypeScript                |
-| Styling      | Tailwind CSS                                         |
-| Motion       | GSAP + ScrollTrigger, Lenis, Framer Motion          |
-| AI           | Anthropic SDK — `claude-opus-4-8`, structured output |
-| Validation   | zod                                                 |
+| Layer     | Choice                                     |
+| --------- | ------------------------------------------ |
+| Framework | Next.js 14 (App Router) + TypeScript       |
+| Styling   | Tailwind CSS                               |
+| Motion    | GSAP + ScrollTrigger, Lenis, Framer Motion |
+| Forms     | Formspree (direct browser POST)            |
 
 ---
 
@@ -100,36 +89,31 @@ Open <http://localhost:3000>, describe a business, and hit **Generate site**.
 
 ```
 app/
-  page.tsx                Studio — generator UI + saved-site library
-  preview/page.tsx        Renders a saved/generated site full-screen + editor dock
-  api/generate/route.ts   Calls Claude, returns a validated SiteConfig
-  api/regenerate/route.ts Regenerates a single section of an existing SiteConfig
+  page.tsx          Composes all landing sections inside SmoothScroll
+  layout.tsx        Metadata, fonts
+  globals.css       Theme + utilities (glass, grain, gradient)
 lib/
-  types.ts              SiteConfig zod schema + JSON Schema (the contract)
-  prompt.ts             Creative-director + section-regeneration prompts
-  generate.ts           Claude call (streaming + structured output)
-  regenerate.ts         Single-section Claude call
-  anthropic.ts          Lazy SDK client
-  storage.ts            localStorage site library (save/list/update/export)
-  export-html.ts        Standalone animated index.html generator
-  contact.ts            Formspree endpoint config for the enquiry form
-  samples.ts            Demo SiteConfig + example briefs
-  utils.ts              cn(), withAlpha()
+  site.ts           All marketing copy + theme tokens (edit here)
+  contact.ts        Formspree endpoint config
+  utils.ts          cn(), withAlpha()
 components/
   providers/SmoothScroll.tsx   Lenis <-> GSAP ScrollTrigger wiring
-  site/                        SiteRenderer + all page sections (incl. Pricing, Contact)
-  studio/EditorDock.tsx        Floating per-section regenerate + export controls
+  landing/                     Navbar, Hero, WhyUs, Process, Projects,
+                               Pricing, Testimonials, EnquiryForm, FinalCta,
+                               Footer, SectionHeading
   ui/                          Motion primitives (AnimatedText, Reveal,
-                               Magnetic, SpotlightCard, Parallax, Marquee, Icon)
+                               Magnetic, SpotlightCard, AnimatedGradient,
+                               Parallax, Marquee, Icon)
 ```
 
-### The `SiteConfig` contract
+---
 
-`lib/types.ts` is the heart of the system. It defines — in one zod schema — exactly
-what a website is made of (theme, hero, stats, services, about, testimonials,
-pricing, CTA, contact, footer). Claude is constrained to produce JSON matching its JSON-Schema twin, and
-`<SiteRenderer />` knows how to turn every field into animated UI. To add a new
-section, extend the schema, add it to the JSON Schema + system prompt, and render it.
+## Deploy to Vercel
+
+1. Import `CHED11/SiteForgeAI` at [vercel.com/new](https://vercel.com/new).
+2. Framework auto-detects as Next.js — no config needed.
+3. No environment variables required (the enquiry form works out of the box).
+4. Deploy → you get a `*.vercel.app` URL. Pushes to `main` auto-deploy.
 
 ---
 
@@ -142,16 +126,3 @@ npm run start      # serve the production build
 npm run typecheck  # tsc --noEmit
 npm run lint       # next lint
 ```
-
----
-
-## Accessibility & performance
-
-- Honors `prefers-reduced-motion` — all entrance/scroll/parallax motion is disabled
-  for users who request it, with a CSS safety net in `globals.css`.
-- Animations are transform/opacity-based and GPU-friendly; Lenis is wired through
-  GSAP's ticker so scroll-driven motion never desyncs.
-
----
-
-Crafted with **SiteForge AI**.
