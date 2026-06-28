@@ -3,30 +3,30 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://forgedigital.com.au"),
-  title: "Forge Digital — Premium Website Design & Development | Australia",
+  title: "Forge Digital — Premium Custom Website Design Studio | Australia",
   description:
-    "Forge Digital builds modern, high-converting websites for businesses across Australia. Professionally designed, mobile-optimised, fast-loading and built to generate more enquiries and sales. Get a free website proposal.",
+    "Forge Digital is a premium web design studio crafting bespoke, beautifully built, high-performance websites for businesses across Australia. Exceptional design, flawless on every device, finished to the highest standard. Request a free proposal.",
   keywords: [
-    "website design Australia",
-    "web design agency",
-    "small business websites",
-    "high-converting websites",
-    "lead generation websites",
-    "website development",
+    "custom website design Australia",
+    "bespoke web design",
+    "premium web design studio",
+    "website design and development",
+    "luxury web design",
+    "professional website designer",
   ],
   openGraph: {
-    title: "Forge Digital — Premium Websites Built To Grow Your Business",
+    title: "Forge Digital — Bespoke Websites, Beautifully Built",
     description:
-      "Modern, high-converting websites for businesses across Australia. Get your free website proposal.",
+      "A premium web design studio crafting bespoke, beautifully built websites for businesses across Australia. Request your free proposal.",
     type: "website",
     locale: "en_AU",
     siteName: "Forge Digital",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forge Digital — Premium Website Design, Australia",
+    title: "Forge Digital — Premium Custom Website Design, Australia",
     description:
-      "Modern, high-converting websites built to generate more enquiries and sales.",
+      "Bespoke, beautifully built, high-performance websites — designed and developed to the highest standard.",
   },
   robots: { index: true, follow: true },
 };

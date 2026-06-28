@@ -130,9 +130,9 @@ export default function Projects() {
     >
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Recent Projects"
-          title="Websites that get our clients real results"
-          subtitle="A selection of recent builds across trades, services, healthcare, and e-commerce — each designed to convert."
+          eyebrow="Recent Work"
+          title="Websites we're proud to put our name to"
+          subtitle="A selection of recent builds across trades, services, healthcare, and e-commerce — each crafted to the highest standard."
         />
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

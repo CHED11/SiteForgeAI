@@ -3,10 +3,9 @@
 **Premium website design & development agency — lead-generation site.**
 
 Forge Digital builds modern, high-converting websites for businesses across
-Australia. This repository is the agency's own marketing site: a single,
-premium, dark-luxury landing page whose one job is to **collect qualified
-enquiries** from business owners who want Forge Digital to design and build a
-website for them.
+Australia. This repository is the studio's own website: a single, premium,
+dark-luxury landing page whose one job is to **collect enquiries** from business
+owners who want Forge Digital to design and build a website for them.
 
 > This is **not** a website builder. Visitors don't create anything — they read,
 > get convinced, and submit an enquiry.
@@ -93,7 +92,7 @@ app/
   layout.tsx        Metadata, fonts
   globals.css       Theme + utilities (glass, grain, gradient)
 lib/
-  site.ts           All marketing copy + theme tokens (edit here)
+  site.ts           All site copy + theme tokens (edit here)
   contact.ts        Formspree endpoint config
   utils.ts          cn(), withAlpha()
 components/

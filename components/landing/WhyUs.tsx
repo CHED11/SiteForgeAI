@@ -17,8 +17,8 @@ export default function WhyUs() {
       <div className="mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="Why Choose Forge Digital"
-          title="Everything your website needs to win customers"
-          subtitle="We don't just make sites that look good — we build them to load fast, rank well, and turn visitors into paying customers."
+          title="Crafted with obsessive attention to detail"
+          subtitle="Every Forge Digital website is bespoke, beautifully built, and finished to a standard most studios reserve for their biggest clients."
         />
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

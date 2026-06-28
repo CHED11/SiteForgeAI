@@ -16,7 +16,7 @@ export default function Process() {
         <SectionHeading
           eyebrow="Our Process"
           title="From enquiry to launch in four simple steps"
-          subtitle="A clear, collaborative process designed to be effortless for you and obsessive about results."
+          subtitle="A clear, collaborative process designed to be effortless for you and obsessive about craft."
         />
 
         <div className="relative grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

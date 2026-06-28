@@ -28,9 +28,9 @@ export default function Testimonials() {
     >
       <div className="mx-auto max-w-6xl">
         <SectionHeading
-          eyebrow="Client Results"
-          title="Trusted by businesses across Australia"
-          subtitle="Real words from real owners who've grown their enquiries with a Forge Digital website."
+          eyebrow="Kind Words"
+          title="Loved by the businesses we build for"
+          subtitle="What our clients say about the design, the process, and the finished website."
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">

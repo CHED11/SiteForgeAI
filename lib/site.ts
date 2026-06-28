@@ -1,16 +1,25 @@
 import type { IconName } from "@/components/ui/Icon";
 
 /**
- * Single source of truth for all Forge Digital marketing copy and theme tokens.
- * Forge Digital is a premium website design & development agency — this site
- * exists to collect qualified enquiries from Australian business owners.
+ * Single source of truth for all Forge Digital copy and theme tokens.
+ *
+ * Forge Digital is a premium web DESIGN & DEVELOPMENT STUDIO — we design, build,
+ * and launch bespoke, high-end websites. We are NOT a marketing, advertising,
+ * SEO, or lead-generation agency: no ad campaigns, sales funnels, CRO services,
+ * growth consulting, or business strategy.
+ *
+ * We DO talk about conversion-focused website DESIGN — websites strategically
+ * designed with proven UI/UX principles and intuitive customer journeys that
+ * help businesses build trust, encourage enquiries, and convert visitors into
+ * customers through excellent design and user experience. The throughline is
+ * craft: bespoke design, performance, UX, animation, presentation, clean code.
  */
 
 export const BRAND = {
   name: "FORGE DIGITAL",
-  tagline: "Premium Websites Built To Grow Your Business",
+  tagline: "Bespoke Websites, Beautifully Built",
   email: "hello@forgedigital.com.au",
-  location: "Servicing businesses Australia-wide",
+  location: "Designing for businesses Australia-wide",
 };
 
 /** Dark luxury palette. */
@@ -26,75 +35,75 @@ export const THEME = {
 export const NAV_LINKS = [
   { label: "Why Us", href: "#why" },
   { label: "Process", href: "#process" },
-  { label: "Projects", href: "#projects" },
+  { label: "Work", href: "#projects" },
   { label: "Pricing", href: "#pricing" },
   { label: "Reviews", href: "#testimonials" },
 ];
 
 export const HERO = {
-  eyebrow: "Premium Web Design Agency · Australia",
-  headline: "Websites That Turn Visitors Into Customers",
+  eyebrow: "Premium Web Design Studio · Australia",
+  headline: "The Best-Looking Website In Your Industry",
   subheadline:
-    "We build modern, high-converting websites for businesses across Australia. Professionally designed, mobile-optimised, fast-loading and built to generate more enquiries and sales.",
-  primaryCta: "Get My Free Website Proposal",
-  secondaryCta: "View Recent Projects",
+    "Forge Digital is a premium web design studio crafting bespoke, beautifully built websites for businesses across Australia. Meticulously designed, exceptionally fast, and strategically built to turn visitors into customers.",
+  primaryCta: "Get My Free Proposal",
+  secondaryCta: "View Our Work",
 };
 
 export const STATS = [
-  { value: "120+", label: "Websites launched" },
+  { value: "120+", label: "Websites crafted" },
   { value: "4.9★", label: "Average client rating" },
-  { value: "100%", label: "Australian owned & run" },
+  { value: "100%", label: "Custom-built, no templates" },
   { value: "14 days", label: "Average build time" },
 ];
 
 export const FEATURES: { icon: IconName; title: string; description: string }[] = [
   {
     icon: "palette",
-    title: "Custom Website Design",
+    title: "Bespoke Website Design",
     description:
-      "Bespoke designs crafted around your brand, your goals, and the exact customers you want to win.",
+      "Every website is designed from scratch around your brand — no templates, no shortcuts. Just original, considered design.",
+  },
+  {
+    icon: "layers",
+    title: "Premium Development",
+    description:
+      "Hand-built with clean, modern code by senior developers — robust, refined, and crafted with genuine care.",
   },
   {
     icon: "phone",
     title: "Mobile Responsive",
     description:
-      "Flawless on every screen. Most visitors are on a phone — we design mobile-first so they convert.",
+      "Immaculate on every device. Your site looks and feels flawless across phones, tablets, and desktops alike.",
   },
   {
     icon: "gauge",
-    title: "Fast Loading Speeds",
+    title: "Fast Loading Performance",
     description:
-      "Performance-tuned builds that load in a blink, so visitors stay and Google ranks you higher.",
-  },
-  {
-    icon: "search",
-    title: "SEO Ready",
-    description:
-      "Clean, structured, search-friendly foundations that help the right customers find you first.",
+      "Meticulously optimised to load in an instant, so your website feels effortless and premium the moment it opens.",
   },
   {
     icon: "target",
-    title: "Lead Generation Focused",
+    title: "Strategic UX & Layouts",
     description:
-      "Every page is engineered to turn visitors into enquiries, phone calls, and booked jobs.",
-  },
-  {
-    icon: "support",
-    title: "Ongoing Support",
-    description:
-      "We don't disappear at launch. Updates, tweaks, and advice whenever your business needs them.",
+      "Intuitive customer journeys and conversion-focused layouts that guide visitors naturally and turn interest into enquiries.",
   },
   {
     icon: "sparkle",
-    title: "Premium User Experience",
+    title: "Modern Animations",
     description:
-      "Smooth, intuitive, considered. The kind of polish customers instinctively associate with trust.",
+      "Tasteful motion and subtle micro-interactions that bring your website to life — elegant, never gimmicky.",
   },
   {
-    icon: "growth",
-    title: "Built For Business Growth",
+    icon: "star",
+    title: "Professional Presentation",
     description:
-      "Scalable foundations ready to grow with you — from your first enquiry to market leader.",
+      "A polished, credible presence that reflects the true quality of your business and builds instant trust.",
+  },
+  {
+    icon: "shield",
+    title: "Clean, Maintainable Code",
+    description:
+      "Tidy, well-structured code built to best-practice standards — easy to maintain, extend, and rely on for years.",
   },
 ];
 
@@ -103,25 +112,25 @@ export const PROCESS = [
     step: "01",
     title: "Submit Your Enquiry",
     description:
-      "Tell us about your business and goals using the enquiry form. It takes about two minutes.",
+      "Tell us about your business and the website you have in mind. It takes about two minutes.",
   },
   {
     step: "02",
-    title: "Discovery & Strategy Call",
+    title: "Discovery & Design Direction",
     description:
-      "We map your audience, competitors, and the fastest path to more enquiries and sales.",
+      "We get to know your brand and shape the look, feel, and structure of your new website together.",
   },
   {
     step: "03",
     title: "Design & Development",
     description:
-      "We design, write, and build your website — keeping you in the loop at every milestone.",
+      "We craft your website — designing, refining, and hand-building every detail with you in the loop.",
   },
   {
     step: "04",
-    title: "Launch & Optimisation",
+    title: "Launch & Handover",
     description:
-      "We launch, test, and fine-tune for speed, SEO, and conversions — then keep supporting you.",
+      "We polish, test across every device, launch, and hand over a website you'll be proud of — with support if you need it.",
   },
 ];
 
@@ -136,43 +145,43 @@ export const PROJECTS: {
     name: "Coastal Plumbing Co",
     category: "Trades",
     icon: "wrench",
-    result: "+212% call enquiries",
-    description: "A fast, trust-building site that turned a quiet phone into a full booking calendar.",
+    result: "Bold, bespoke design",
+    description: "A confident, trustworthy design that gives an established trade business the premium presence it deserves.",
   },
   {
     name: "Lumen Dental",
     category: "Health & Service",
     icon: "sparkle",
-    result: "3× online bookings",
-    description: "A calm, premium experience with seamless online booking front and centre.",
+    result: "Calm, premium UX",
+    description: "A refined, reassuring experience with beautifully considered details throughout.",
   },
   {
     name: "Harvest & Co",
     category: "E-commerce",
     icon: "cart",
-    result: "+47% online sales",
-    description: "A conversion-optimised store with a checkout customers actually finish.",
+    result: "Refined online store",
+    description: "A clean, elegant online store with a shopping experience as polished as the products.",
   },
   {
     name: "Vertex Accounting",
     category: "Professional Services",
     icon: "shield",
-    result: "Premium rebrand",
-    description: "An authoritative, polished presence that wins higher-value clients.",
+    result: "Polished & credible",
+    description: "An authoritative, sophisticated website befitting a high-end professional firm.",
   },
   {
     name: "Apex Electrical",
     category: "Trades",
     icon: "rocket",
-    result: "Top of local search",
-    description: "Built for local SEO so they own the map pack in their service areas.",
+    result: "Sleek custom build",
+    description: "A modern, crisp build with sharp typography and smooth, tasteful motion.",
   },
   {
     name: "Bloom Studio",
     category: "Beauty & Service",
     icon: "star",
-    result: "Booked out in 6 weeks",
-    description: "A beautiful brand showcase that filled the calendar within weeks of launch.",
+    result: "Elegant brand showcase",
+    description: "A beautiful brand showcase with graceful galleries and effortless navigation.",
   },
 ];
 
@@ -184,104 +193,185 @@ export const PRICING: {
   features: string[];
   cta: string;
   featured: boolean;
+  addon: boolean;
 }[] = [
   {
     name: "Starter Website",
-    price: "From $799",
-    cadence: "one-off",
-    description: "For new and small businesses that need a professional presence — fast.",
+    price: "From $999",
+    cadence: "AUD",
+    description:
+      "Perfect for startups and small businesses wanting a professionally designed online presence.",
     features: [
       "Up to 5 custom pages",
-      "Mobile-responsive design",
-      "Contact & enquiry form",
+      "Premium responsive website",
+      "Custom UI design",
+      "Contact & enquiry forms",
       "Basic on-page SEO",
-      "Google Maps + socials",
+      "Google Maps integration",
+      "Social media integration",
+      "SSL certificate configuration",
+      "Domain connection",
+      "Hosting setup",
+      "Image optimisation",
+      "Website speed optimisation",
+      "Mobile responsive",
+      "Security best practices",
       "2 rounds of revisions",
-      "Launch in ~1–2 weeks",
+      "Launch within approx. 1–2 weeks",
     ],
     cta: "Get Started",
     featured: false,
+    addon: false,
   },
   {
     name: "Business Website",
-    price: "From $1,499",
-    cadence: "one-off",
-    description: "Our most popular package for established businesses focused on growth.",
+    price: "From $1,999",
+    cadence: "AUD",
+    description:
+      "For businesses wanting a premium online presence built with exceptional design, strategic layouts, and a polished customer experience.",
     features: [
       "Up to 10 custom pages",
-      "Premium conversion design",
-      "Professional copywriting",
-      "Advanced SEO setup",
-      "Lead capture + automation",
-      "Analytics & tracking",
-      "Speed optimisation",
+      "Conversion-focused website design",
+      "Premium UI/UX",
+      "Custom animations",
+      "CMS integration",
+      "Booking system integration (if required)",
+      "Gallery & portfolio pages",
+      "Contact forms",
+      "Website speed optimisation",
+      "Image optimisation",
+      "Security optimisation",
+      "Domain connection",
+      "Hosting configuration",
       "Priority support",
     ],
     cta: "Get Started",
     featured: true,
+    addon: true,
   },
   {
     name: "Premium Website",
-    price: "From $2,499+",
-    cadence: "bespoke",
-    description: "A high-end, fully bespoke build for businesses that want to dominate.",
+    price: "From $3,999+",
+    cadence: "AUD",
+    description:
+      "Completely bespoke websites designed and developed from the ground up for businesses wanting a truly premium digital presence.",
     features: [
       "Unlimited core pages",
-      "Fully bespoke design & motion",
-      "Full copywriting & strategy",
-      "E-commerce or bookings",
-      "Advanced integrations",
-      "Conversion rate optimisation",
-      "3 months support included",
-      "Dedicated project manager",
+      "Completely bespoke design",
+      "Premium animations",
+      "Advanced custom functionality",
+      "Ecommerce integration",
+      "Booking systems",
+      "Membership functionality (if required)",
+      "API integrations",
+      "Advanced CMS",
+      "Custom dashboards (if required)",
+      "Performance optimisation",
+      "Security hardening",
+      "Accessibility optimisation",
+      "Dedicated project management",
+      "Priority support after launch",
     ],
     cta: "Book a Call",
     featured: false,
+    addon: true,
   },
 ];
 
 export const PRICING_NOTE =
-  "All packages include hosting setup, SSL, and a mobile-first build. Prices in AUD, GST exclusive.";
+  "Every project is tailored to your business. Prices shown are starting prices and may vary depending on project scope, integrations and custom functionality.";
+
+/**
+ * Optional premium add-on offered with the Business and Premium packages.
+ * A manually configured technical implementation — not an automated product.
+ */
+export const GBP_ADDON = {
+  badge: "Optional Premium Add-on",
+  title: "Google Business Profile & Review Infrastructure",
+  intro:
+    "A premium, hand-configured technical implementation — not an automated software product. Every setup is completed manually and tailored specifically to your business, giving you a professional review-collection infrastructure that makes it simple for genuine customers to leave Google reviews.",
+  availability: "Available with the Business and Premium packages.",
+  groups: [
+    {
+      heading: "Profile setup & optimisation",
+      items: [
+        "Google Business Profile creation (where required)",
+        "Existing profile optimisation",
+        "Assistance with ownership verification",
+        "Business information configuration",
+        "Categories & services configuration",
+        "Contact information setup",
+        "Opening hours configuration",
+        "Service area configuration",
+        "Google Maps optimisation",
+        "Professional business description",
+        "Profile branding optimisation",
+        "Photo recommendations",
+      ],
+    },
+    {
+      heading: "Review collection infrastructure",
+      items: [
+        "Google Review landing page development",
+        "Custom branded review page",
+        "Direct Google Review link generation",
+        "QR code generation",
+        "Review request workflow setup",
+        "Email review request integration (your email or a dedicated business email configured during setup)",
+      ],
+    },
+    {
+      heading: "Hosting & delivery",
+      items: [
+        "Domain or subdomain connection (where applicable)",
+        "SSL configuration",
+        "Secure hosting of the review landing page",
+        "End-to-end testing before delivery",
+      ],
+    },
+  ],
+  note: "Every implementation is professionally configured by Forge Digital. We don't guarantee rankings or specific review numbers — just a polished, reliable way for your genuine customers to share their experience.",
+};
 
 export const TESTIMONIALS = [
   {
     quote:
-      "Forge Digital rebuilt our site and the difference was immediate — we went from a handful of enquiries a month to booked out weeks ahead. Worth every dollar.",
+      "The website looks absolutely stunning — better than anything else in our industry. The whole process was smooth and completely stress-free.",
     author: "Mark T.",
     business: "Coastal Plumbing Co",
     rating: 5,
   },
   {
     quote:
-      "Professional from start to finish. They understood our brand, wrote copy that actually sounds like us, and the site looks like a million bucks.",
+      "Forge Digital understood exactly the look we wanted. The attention to detail is incredible and the finished site feels genuinely premium.",
     author: "Dr. Sarah L.",
     business: "Lumen Dental",
     rating: 5,
   },
   {
     quote:
-      "Our online sales jumped almost 50% in the first two months. The team is responsive, sharp, and genuinely cares about results.",
+      "Beautiful, clean, and so well made. They were a pleasure to work with from start to finish and nothing was ever too much trouble.",
     author: "Jess W.",
     business: "Harvest & Co",
     rating: 5,
   },
   {
     quote:
-      "Best investment we've made in the business. Fast, beautiful, and it ranks. Clients constantly compliment the website.",
+      "Easily the most professional website we've ever had. Polished, elegant, and perfectly on brand. The quality speaks for itself.",
     author: "Daniel R.",
     business: "Vertex Accounting",
     rating: 5,
   },
   {
     quote:
-      "They made the whole process effortless and the result blew us away. Enquiries through the website have tripled.",
+      "I'm obsessed with how it looks. Every little detail is considered and the animations feel so smooth and high-end.",
     author: "Aisha M.",
     business: "Bloom Studio",
     rating: 5,
   },
   {
     quote:
-      "Reliable, talented, and easy to deal with. Forge Digital delivered exactly what they promised, on time and on budget.",
+      "Reliable, talented, and genuinely easy to deal with. They delivered a gorgeous website on time and made the whole thing effortless.",
     author: "Tom H.",
     business: "Apex Electrical",
     rating: 5,
@@ -289,9 +379,8 @@ export const TESTIMONIALS = [
 ];
 
 export const FINAL_CTA = {
-  headline: "Ready To Grow Your Business Online?",
-  subheadline:
-    "Let's build a website that attracts customers and drives results.",
+  headline: "Ready For A Website You're Proud Of?",
+  subheadline: "Let's design and build something beautiful for your business.",
   button: "Request Your Free Proposal",
 };
 
