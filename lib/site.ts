@@ -217,7 +217,7 @@ export const PRICING: {
       "Mobile responsive",
       "Security best practices",
       "2 rounds of revisions",
-      "Launch within approx. 1–2 weeks",
+      "Launch within approximately 1–2 weeks",
     ],
     cta: "Get Started",
     featured: false,
